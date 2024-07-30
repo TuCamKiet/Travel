@@ -30,7 +30,6 @@ router.post("/api/update-status-donhang", async (req, res) => {
       const data = await DonHang.findByIdAndUpdate(orderID, {
         trangThai: "Đã thanh toán",
       });
-      res.status(200).json(data);
 
       const response = await fetch(`/api/get_all_tickets`);
       if (!response.ok) {
@@ -49,6 +48,7 @@ router.post("/api/update-status-donhang", async (req, res) => {
             body: JSON.stringify({ trangThaiVe: "Đã thanh toán" }),
           });
         }
+        res.status(200).json(data);
       }
     }
   } catch (err) {
