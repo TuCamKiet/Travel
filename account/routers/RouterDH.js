@@ -31,7 +31,9 @@ router.post("/api/update-status-donhang", async (req, res) => {
         trangThai: "Đã thanh toán",
       });
 
-      const response = await fetch(`/api/get_all_tickets`);
+      const response = await fetch(
+        `https://travelkara.vercel.app/api/get_all_tickets`
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       } else {
@@ -40,13 +42,16 @@ router.post("/api/update-status-donhang", async (req, res) => {
           (ticket) => ticket.maDon === orderID
         );
         for (const ticket of ticketsToUpdate) {
-          await fetch(`/api/update_ticket/${ticket._id}`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ trangThaiVe: "Đã thanh toán" }),
-          });
+          await fetch(
+            `https://travelkara.vercel.app/api/update_ticket/${ticket._id}`,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ trangThaiVe: "Đã thanh toán" }),
+            }
+          );
         }
         res.status(200).json(data);
       }
